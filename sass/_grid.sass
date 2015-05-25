@@ -1,0 +1,50 @@
+$gutter: 40px
+$breakpoints: sm 480, md 768, lg 1024
+$columns: 12
+
+*,*:after,*:before
+	-webkit-box-sizing: border-box
+	-moz-box-sizing: border-box
+	box-sizing: border-box
+
+
+.container
+	max-width: 1170px
+	padding: $gutter
+
+.row
+	position: relative
+	clear:both
+	
+	&:after, &:before
+		content: " "
+		display: table
+		clear: both
+	
+
+// Standard column class
+.column
+	position: relative
+	float: left
+	padding: 0
+	width: 100%
+	&:after
+		content: ""
+		display: table
+		clear: both
+	
+	
+
+// Generate grid classes for different breakpoints
+// Ex: sm1, md6, lg12
+@each $breakpoint, $value in $breakpoints
+	@media all and (min-width: $value+px)
+		@for $i from 1 through $columns
+			.#{$breakpoint}#{$i}
+				width: ((100% / $columns)*$i)
+
+@each $breakpoint, $value in $breakpoints
+	@media all and (min-width: $value+px)
+		@for $i from 1 through $columns
+			.offset-#{$breakpoint}#{$i}
+				margin-left: ((100% / $columns)*$i)
